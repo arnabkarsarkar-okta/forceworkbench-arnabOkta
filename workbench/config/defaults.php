@@ -276,11 +276,6 @@ $config["header_LoginOptions"] = array(
     );
 
     $GLOBALS['API_VERSIONS'] = array(
-        "58.0" => "58.0",
-        "57.0" => "57.0",
-        "56.0" => "56.0",
-        "55.0" => "55.0",
-        "54.0" => "54.0",
         "53.0" => "53.0",
         "52.0" => "52.0",
         "51.0" => "51.0",
@@ -332,7 +327,7 @@ $config["header_LoginOptions"] = array(
     $config["defaultApiVersion"]  = array(
         "label" => "Default API Version",
         "description" => "Default API version to be used for login. This setting does not affect the API version of the current session. Recommended to choose latest version. Some features may act unexpectedly when using older versions.",
-        "default" => "58.0",
+        "default" => "52.0",
         "overrideable" => true,
         "dataType" => "picklist",
         "valuesToLabels" => $GLOBALS['API_VERSIONS']
@@ -1002,7 +997,15 @@ $config["header_internal"] = array(
 
     $config["redisUrl"] = array(
         "label" => "Redis URL",
-        "description" => "Redis URL used for sessions and async processing.",
+        "description" => "Redis URL used for async processing.",
+        "default" => "",
+        "overrideable" => false,
+        "dataType" => "string"
+    );
+
+    $config["sessionStore"] = array(
+        "label" => "Session Store",
+        "description" => "Only redis:// URL are currently supported; otherwise, blank for default value",
         "default" => "",
         "overrideable" => false,
         "dataType" => "string"

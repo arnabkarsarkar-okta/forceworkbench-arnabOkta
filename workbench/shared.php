@@ -28,13 +28,13 @@ function redis() {
         }
 
         $redisUrl = WorkbenchConfig::get()->value("redisUrl");
-        $redis = new Redis();
-        $redis->connect("tls://".parse_url($redisUrl, PHP_URL_HOST), parse_url($redisUrl, PHP_URL_PORT), 0, NULL, 0, 0, [
-          "auth" => parse_url($redisUrl, PHP_URL_PASS),
-          "stream" => ["verify_peer" => false, "verify_peer_name" => false],
-        ]);
+        $r = new Redis();
+        $r->connect(parse_url($redisUrl, PHP_URL_HOST), parse_url($redisUrl, PHP_URL_PORT));
+        if (!is_array(parse_url($redisUrl, PHP_URL_PASS))) {
+            $r->auth(parse_url($redisUrl, PHP_URL_PASS));
+        }
 
-        $GLOBALS['REDIS'] = $redis;
+        $GLOBALS['REDIS'] = $r;
     }
     return $GLOBALS['REDIS'];
 }
@@ -168,19 +168,13 @@ function usingSslEndToEnd() {
     return usingSslFromUserToWorkbench() && usingSslFromWorkbenchToSfdc();
 }
 
-function toBytes($str) {
-    $matches = [];
-    if (!preg_match('/([0-9]+)([a-z]?)/', strtolower($str), $matches)) {
-        return 0;
+function toBytes ($size_str) {
+    switch (substr ($size_str, -1)) {
+        case 'G': case 'g': $size_str *= 1024;
+        case 'M': case 'm': $size_str *= 1024;
+        case 'K': case 'k': $size_str *= 1024;
     }
-    $num = (int)$matches[1];
-    $unit = $matches[2];
-    switch ($unit) {
-        case 'g': $num *= 1024;
-        case 'm': $num *= 1024;
-        case 'k': $num *= 1024;
-    }
-    return $num;
+    return (int)$size_str;
 }
 
 function endsWith($haystack, $needle, $ignoreCase){
@@ -274,8 +268,8 @@ function isKnownAuthenticationError($errorMessage) {
 
     return false;
 }
-#, $errcontext
-function handleAllErrors($errno, $errstr, $errfile, $errline) {
+
+function handleAllErrors($errno, $errstr, $errfile, $errline, $errcontext) {
     $errorId = basename($errfile, ".php") . "-$errline-" . time();
     workbenchLog(LOG_CRIT, "F",  "measure.fatal=1 " . $errorId . ":$errstr:" . print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), true));
 
