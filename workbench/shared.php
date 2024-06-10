@@ -274,8 +274,8 @@ function isKnownAuthenticationError($errorMessage) {
 
     return false;
 }
-
-function handleAllErrors($errno, $errstr, $errfile, $errline, $errcontext) {
+#, $errcontext
+function handleAllErrors($errno, $errstr, $errfile, $errline) {
     $errorId = basename($errfile, ".php") . "-$errline-" . time();
     workbenchLog(LOG_CRIT, "F",  "measure.fatal=1 " . $errorId . ":$errstr:" . print_r(debug_backtrace(DEBUG_BACKTRACE_IGNORE_ARGS), true));
 
