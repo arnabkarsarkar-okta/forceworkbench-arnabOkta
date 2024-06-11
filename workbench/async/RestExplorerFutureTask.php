@@ -1,6 +1,9 @@
 <?php
 require_once "futures.php";
 require_once "controllers/RestExplorerController.php";
+require_once 'session.php';
+require_once 'shared.php';
+require_once 'header.php';
 
 class RestExplorerFutureTask extends FutureTask {
 
