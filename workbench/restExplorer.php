@@ -7,6 +7,7 @@ require_once 'controllers/RestExplorerController.php';
 require_once 'async/RestExplorerFutureTask.php';
 require_once 'session.php';
 require_once 'shared.php';
+require_once 'header.php';
 
 if(!isset($_SESSION['restExplorerController']) || isset($_GET['reset'])) {
     $_SESSION['restExplorerController'] = new RestExplorerController();
@@ -19,7 +20,6 @@ if ($c->doExecute || $c->autoExec == '1') {
     $result = $f->enqueueOrPerform();
 }
 
-require_once 'header.php';
 ?>
 <link
 	rel="stylesheet" type="text/css"
