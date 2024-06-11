@@ -401,11 +401,12 @@ function isLoggedIn() {
 }
 
 function termsOk() {
-    if (!strlen(WorkbenchConfig::get()->value("termsFile"))) {
-        return true;
-    }
+    return true;
+    // if (!strlen(WorkbenchConfig::get()->value("termsFile"))) {
+    //     return true;
+    // }
 
-    return WorkbenchContext::isEstablished() && WorkbenchContext::get()->hasAgreedToTerms();
+    // return WorkbenchContext::isEstablished() && WorkbenchContext::get()->hasAgreedToTerms();
 }
 
 function getMyPage() {
