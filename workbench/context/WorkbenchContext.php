@@ -10,6 +10,7 @@ require_once 'UserInfoProvider.php';
 require_once 'DescribeGlobalProvider.php';
 require_once 'DescribeSObjectsProvider.php';
 
+#[AllowDynamicProperties]
 class WorkbenchContext {
     // namespace for $_SESSION instance of $this and keyed values in $_REQUEST
     const INSTANCE = "WORKBENCH_CONTEXT";

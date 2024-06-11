@@ -66,7 +66,7 @@ if (WorkbenchContext::isEstablished() && !WorkbenchContext::get()->isApiVersionA
 //check for latest version
 function strip_seps($haystack) {
     foreach (array(' ', '_', '-') as $n) {
-        $haystack = str_replace($n, "", $haystack);
+        $haystack = $haystack ? str_replace($n, "", $haystack) : "";
     }
     return $haystack;
 }
