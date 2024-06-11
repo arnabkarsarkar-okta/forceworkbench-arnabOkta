@@ -17,18 +17,19 @@
 // Note, Production and Sandbox can have the same key and secret, but it is not required
 // If connecting to other Salesforce environments, add a new entry to the array:
 //
-//$config["oauthConfigs"]["default"] = array(
-//                                            "login.salesforce.com" => array(
-//                                                "label" => "Production",
-//                                                "key" => "",
-//                                                "secret" => ""
-//                                            ),
-//                                            "test.salesforce.com" => array(
-//                                                "label" => "Sandbox",
-//                                                "key" => "",
-//                                                "secret" => ""
-//                                            )
-//                                        );
+$config["oauthRequired"]["default"] = true;
+$config["oauthConfigs"]["default"] = array(
+                                           "login.salesforce.com" => array(
+                                               "label" => "Production",
+                                               "key" => "",
+                                               "secret" => ""
+                                           ),
+                                           "test.salesforce.com" => array(
+                                               "label" => "Sandbox",
+                                               "key" => "3MVG9x2D7w6gNN5lB438vZDp5jQMLY7Imji6FPN31MpU5DJG5c2gSVAygFjFg7pTioLObFgprEoAyad5ndvhU",
+                                               "secret" => "A2745FAAC43141A44B8671359D1BE1F01087D67EF92A770CE50489ACE7C3FB86"
+                                           )
+                                       );
 
 
 // CSRF SECURITY SETTINGS
